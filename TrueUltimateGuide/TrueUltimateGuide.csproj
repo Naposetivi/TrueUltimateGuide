@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="myroot\sample1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="myroot\sample1.txt" />
+    <Content Include="mywebroot\sample2.txt" />
+  </ItemGroup>
+
 </Project>
