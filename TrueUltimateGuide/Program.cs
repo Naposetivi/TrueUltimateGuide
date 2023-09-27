@@ -2,18 +2,23 @@ using Microsoft.Extensions.FileProviders;
 using TrueUltimateGuide.CustomConstrains;
 using TrueUltimateGuide.CustomMiddleware;
 
-//var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddTransient<MyCustomMiddleware>();
 //builder.Services.AddRouting(options => {
 //    options.ConstraintMap.Add("months", typeof(MonthsCustomConstraint));
 //});
+//var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
+//{
+//    WebRootPath = "myroot"
+//});
 
-var builder = WebApplication.CreateBuilder(new WebApplicationOptions()
-{
-    WebRootPath = "myroot"
-});
+builder.Services.AddControllers();
 
 var app = builder.Build();
+
+app.UseStaticFiles();
+app.UseRouting();
+app.MapControllers();
 
 //-- Run --
 
@@ -130,22 +135,22 @@ var app = builder.Build();
 
 
 
-app.UseStaticFiles(); //works with the web root path (myroot)
-app.UseStaticFiles(new StaticFileOptions()
-{
-    FileProvider = new PhysicalFileProvider(
- Path.Combine(builder.Environment.ContentRootPath, "mywebroot")
- )
-}); //works with "mywebroot"
+//app.UseStaticFiles(); //works with the web root path (myroot)
+//app.UseStaticFiles(new StaticFileOptions()
+//{
+//    FileProvider = new PhysicalFileProvider(
+// Path.Combine(builder.Environment.ContentRootPath, "mywebroot")
+// )
+//}); //works with "mywebroot"
 
-app.UseRouting();
+//app.UseRouting();
 
-app.UseEndpoints(endpoints => {
-    endpoints.Map("/", async context =>
-    {
-        await context.Response.WriteAsync("Hello");
-    });
-});
+//app.UseEndpoints(endpoints => {
+//    endpoints.Map("/", async context =>
+//    {
+//        await context.Response.WriteAsync("Hello");
+//    });
+//});
 
 #endregion
 
