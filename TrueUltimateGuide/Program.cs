@@ -13,15 +13,17 @@ var builder = WebApplication.CreateBuilder(args);
 //    WebRootPath = "myroot"
 //});
 
-builder.Services.AddControllers(options => {
-    //options.ModelBinderProviders.Insert(0, new PersonBinderProvider());
-});
+//builder.Services.AddControllers(options => {
+//    //options.ModelBinderProviders.Insert(0, new PersonBinderProvider());
+//});
 
-builder.Services.AddControllers().AddXmlSerializerFormatters();
+builder.Services.AddControllersWithViews();
+
+//builder.Services.AddControllers().AddXmlSerializerFormatters();
 var app = builder.Build();
 
 app.UseStaticFiles();
-app.UseRouting();
+//app.UseRouting();
 app.MapControllers();
 
 //-- Run --

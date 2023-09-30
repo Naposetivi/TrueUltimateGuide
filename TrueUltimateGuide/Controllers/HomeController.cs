@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Reflection;
 using TrueUltimateGuide.Models;
 
 namespace TrueUltimateGuide.Controllers
@@ -90,18 +91,122 @@ namespace TrueUltimateGuide.Controllers
         //return RedirectPermanent($"store/books/{bookId}"); //301 - Moved Permanently
         //}
 
-        [Route("register")]
-        public IActionResult Index(Person person, [FromHeader(Name = "User-Agent")] string UserAgent)
+        //[Route("register")]
+        //public IActionResult Index(Person person, [FromHeader(Name = "User-Agent")] string UserAgent)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        //get error messages from model state
+        //        string errors = string.Join("\n", ModelState.Values.SelectMany(value => value.Errors).Select(err => err.ErrorMessage));
+
+        //        return BadRequest(errors);
+        //    }
+
+        //    return Content($"{person}, {UserAgent}");
+        //}
+
+        //  [Route("home")]
+        //  [Route("/")]
+        //  public IActionResult Index()
+        //  {
+        //      ViewData["appTitle"] = "Asp.Net Core Demo App";
+
+        //      List<Person> people = new List<Person>()
+        //      {
+        //    new Person() { Name = "John", DateOfBirth = DateTime.Parse("2000-05-06"), PersonGender = Gender.Male},
+        //    new Person() { Name = "Linda", DateOfBirth = DateTime.Parse("2005-01-09"), PersonGender = Gender.Female},
+        //    new Person() { Name = "Susan", DateOfBirth = null, PersonGender = Gender.Other}
+        //};
+
+        //      return View("Index", people); //Views/Home/Index.cshtml
+        //  }
+
+
+        //  [Route("person-details/{name}")]
+        //  public IActionResult Details(string? name)
+        //  {
+        //      if (name == null)
+        //          return Content("Person name can't be null");
+
+        //      List<Person> people = new List<Person>()
+        //      {
+        //    new Person() { Name = "John", DateOfBirth = DateTime.Parse("2000-05-06"), PersonGender = Gender.Male},
+        //    new Person() { Name = "Linda", DateOfBirth = DateTime.Parse("2005-01-09"), PersonGender = Gender.Female},
+        //    new Person() { Name = "Susan", DateOfBirth = null, PersonGender = Gender.Other}
+        //};
+        //      Person? matchingPerson = people.Where(temp => temp.Name == name).FirstOrDefault();
+        //      return View(matchingPerson);  //Views/Home/Details.cshtml
+        //  }
+
+        //  [Route("person-with-product")]
+        //  public IActionResult PersonWithProduct()
+        //  {
+        //      Person person = new Person() { Name = "Sara", PersonGender = Gender.Female, DateOfBirth = Convert.ToDateTime("2004-07-01") };
+
+        //      Product product = new Product() { ProductId = 1, ProductName = "Air Conditioner" };
+
+        //      PersonAndProductWrapperModel personAndProductWrapperModel = new PersonAndProductWrapperModel() { PersonData = person, ProductData = product };
+        //      return View(personAndProductWrapperModel);
+        //  }
+
+        //  [Route("home/all-products")]
+        //  public IActionResult All()
+        //  {
+        //      return View();
+        //      //Views/Home/All.cshtml
+        //      //Views/Shared/All.cshtml
+        //  }
+
+        [Route("/")]
+        public IActionResult Index()
         {
-            if (!ModelState.IsValid)
+            return View();
+        }
+
+        [Route("about")]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        //[Route("contact-support")]
+        //public IActionResult Contact()
+        //{
+        //    return View();
+        //}
+
+
+        //[Route("programming-languages")]
+        //public IActionResult ProgrammingLanguages()
+        //{
+        //    ListModel listModel = new ListModel()
+        //    {
+        //        ListTitle = "Programming Languages List",
+        //        ListItems = new List<string>() {
+        //  "Python",
+        //  "C#",
+        //  "Go"
+        //}
+        //    };
+
+        //    return PartialView("_ListPartialView", listModel);
+        //}
+
+        [Route("friends-list")]
+        public IActionResult LoadFriendsList()
+        {
+            PersonGridModel personGridModel = new PersonGridModel()
             {
-                //get error messages from model state
-                string errors = string.Join("\n", ModelState.Values.SelectMany(value => value.Errors).Select(err => err.ErrorMessage));
+                GridTitle = "Friends",
+                Persons = new List<Person>()
+    {
+        new Person() { PersonName = "Mia", JobTitle = "Developer" },
+        new Person() { PersonName = "Emma", JobTitle = "UI Designer" },
+        new Person() { PersonName = "Avva", JobTitle = "QA" }
+    }
+            };
 
-                return BadRequest(errors);
-            }
-
-            return Content($"{person}, {UserAgent}");
+            return ViewComponent("Grid", new { grid = personGridModel });
         }
     }
 }

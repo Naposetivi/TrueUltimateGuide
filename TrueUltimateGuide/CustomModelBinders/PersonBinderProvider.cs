@@ -4,15 +4,15 @@ using TrueUltimateGuide.Models;
 
 namespace TrueUltimateGuide.CustomModelBinders
 {
-    public class PersonBinderProvider : IModelBinderProvider
-    {
-        public IModelBinder? GetBinder(ModelBinderProviderContext context)
-        {
-            if (context.Metadata.ModelType == typeof(Person))
-            {
-                return new BinderTypeModelBinder(typeof(PersonModelBinder));
-            }
-            return null;
-        }
-    }
+    //public class PersonBinderProvider : IModelBinderProvider
+    //{
+    //    public IModelBinder? GetBinder(ModelBinderProviderContext context)
+    //    {
+    //        if (context.Metadata.ModelType == typeof(Person))
+    //        {
+    //            return new BinderTypeModelBinder(typeof(PersonModelBinder));
+    //        }
+    //        return null;
+    //    }
+    //}
 }
